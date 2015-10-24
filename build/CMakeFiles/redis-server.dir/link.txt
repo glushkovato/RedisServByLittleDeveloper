@@ -1,0 +1,1 @@
+/usr/bin/c++    -g -std=c++11   CMakeFiles/redis-server.dir/main.cpp.o CMakeFiles/redis-server.dir/redis.cpp.o  -o redis-server -rdynamic -lpthread 

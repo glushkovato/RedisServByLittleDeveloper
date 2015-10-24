@@ -1,0 +1,1 @@
+/usr/bin/c++    -g -std=c++11   CMakeFiles/run_test.dir/redis.cpp.o CMakeFiles/run_test.dir/contrib/gmock-gtest-all.cc.o CMakeFiles/run_test.dir/contrib/gmock_main.cc.o CMakeFiles/run_test.dir/test/redis_test.cpp.o  -o run_test -rdynamic -lpthread 

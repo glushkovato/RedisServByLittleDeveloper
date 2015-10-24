@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/fahreevr/Projects/MyReddis/hseos_sample/main.cpp
+iostream
+-
+redis.h
+/home/fahreevr/Projects/MyReddis/hseos_sample/redis.h
+
+/home/fahreevr/Projects/MyReddis/hseos_sample/redis.cpp
+redis.h
+/home/fahreevr/Projects/MyReddis/hseos_sample/redis.h
+
+/home/fahreevr/Projects/MyReddis/hseos_sample/redis.h
+

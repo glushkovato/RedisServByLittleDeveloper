@@ -1,0 +1,2 @@
+/home/fahreevr/Projects/MyReddis/hseos_sample/build/CMakeFiles/run_test.dir
+/home/fahreevr/Projects/MyReddis/hseos_sample/build/CMakeFiles/redis-server.dir
