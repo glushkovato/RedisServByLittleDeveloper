@@ -1,5 +1,4 @@
 #include "reader.h"
-#include "redis.h"
 
 
 char Reader::read_char() {
@@ -46,11 +45,6 @@ std::vector<char> Reader::read_raw(size_t len) {
     for(int i = 0; i != len; ++i) {
         string_out[i] = read_char();
     }
-    return string_out;
-}
-
-RedisError Reader::read_error() {
-    RedisError string_out(read_line());
     return string_out;
 }
 

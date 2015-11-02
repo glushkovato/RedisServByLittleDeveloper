@@ -1,9 +1,9 @@
-#pragma once
+//#pragma once
 
 #include <vector>
 #include <string>
 #include <stdexcept>
-#include "redis.h"
+//#include "redis.h"
 
 class Reader {
 public:
@@ -13,7 +13,6 @@ public:
     std::string read_line(); // read until "\r\n" and skip it
     std::vector<char> read_raw(size_t len); // read string with fixed size and skip "\r\n" at the end
     int64_t read_int(); // read integer and skip "\r\n"
-    RedisError read_error(); // read error string
 
 
 protected:
