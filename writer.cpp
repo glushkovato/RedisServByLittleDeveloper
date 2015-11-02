@@ -25,6 +25,10 @@ void Writer::write_char(char c) {
         flush();
 }
 
+void Writer::write_string(const std::string& s) {
+    write_raw(s.c_str(), s.size());
+}
+
 void Writer::write_crlf() {
     write_char('\r');
     write_char('\n');
