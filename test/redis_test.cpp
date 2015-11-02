@@ -39,3 +39,23 @@ TEST(ReadRedisValue, Int) {
     ReadRedisValue(&reader, &val);
     EXPECT_EQ(-5, boost::get<int64_t>(val));
 }
+
+TEST(WriteRedisValue, string) {
+    RedisValue s = "lol";
+
+    StringWriter writer(1024);
+    WriteRedisValue(&writer, s);
+    writer.flush();
+
+    EXPECT_STREQ("+lol\r\n", writer.result.c_str());
+}
+
+TEST(ReadRedisValue, string) {
+    RedisValue val;
+
+    StringReader reader;
+    reader.input = "+lol\r\n";
+    ReadRedisValue(&reader, &val);
+
+    EXPECT_STREQ("lol", boost::get<std::string>(val).c_str());
+}
