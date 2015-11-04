@@ -21,6 +21,8 @@ void WriteRedisValue(Writer* w, const RedisValue& value) {
     } else if (value.which() == REDIS_ARRAY) {
         w->write_char('*');
         auto arr_vct = boost::get<std::vector<RedisValue>>(value);
+        w->write_int(arr_vct.size());
+        w->write_crlf();
         for (size_t i = 0; i != arr_vct.size(); ++i) {
             WriteRedisValue(w, arr_vct[i]);
         }
