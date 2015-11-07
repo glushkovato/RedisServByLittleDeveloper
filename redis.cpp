@@ -12,6 +12,8 @@ void WriteRedisValue(Writer* w, const RedisValue& value) {
     } else if (value.which() == REDIS_BULK_STRING) {
         w->write_char('$');
         auto vct = boost::get<std::vector<char>>(value);
+        w->write_int(vct.size());
+        w->write_crlf();
         w->write_raw(std::string(vct.begin(), vct.end()).c_str(), vct.size());
         w->write_crlf();
     } else if (value.which() == REDIS_ERROR) {
@@ -42,10 +44,15 @@ void ReadRedisValue(Reader* r, RedisValue* value) {
             break;
         }
         case '*': {
-            int64_t n = r->read_int();
-            for (int i = 0; i != n; ++i) {
-                ReadRedisValue( r, value);
+            long long n = r->read_int();
+            *value = std::vector<RedisValue>(n);
+            for(size_t i = 0; i < n; ++i) {
+                ReadRedisValue(r, &(boost::get<std::vector<RedisValue>>(*value)[i]));
             }
+            /*int64_t n = r->read_int();
+            for (int i = 0; i != n; ++i) {
+                ReadRedisValue( r, &value[i]);
+            }*/
             break;
         }
         case '$': {
@@ -58,11 +65,11 @@ void ReadRedisValue(Reader* r, RedisValue* value) {
             break;
         }
         case '+': {
-            *value = r->read_line();
+            *value = r->read_string();
             break;
         }
         case '-': {
-            *value = r->read_line();
+            *value = RedisError(r->read_string());
             break;
         }
         default:
