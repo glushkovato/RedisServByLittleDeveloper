@@ -29,7 +29,7 @@ int64_t Reader::read_int() {
     return negative ? -i : i;
 }
 
-std::string Reader::read_line() {
+std::string Reader::read_string() {
     char checker;
     std::string string_out;
     while((checker = read_char()) != '\r') {
@@ -45,6 +45,8 @@ std::vector<char> Reader::read_raw(size_t len) {
     for(int i = 0; i != len; ++i) {
         string_out[i] = read_char();
     }
+    read_char();
+    read_char();
     return string_out;
 }
 
