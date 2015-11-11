@@ -14,4 +14,12 @@ class Cmd {
     virtual RedisValue exec(RedisValue args) = 0;
 };
 
+class Get : public Cmd {
+
+};
+
+class Set : public Cmd {
+
+};
+
 #endif //HSE_SAMPLE_PROJECT_CMD_H
