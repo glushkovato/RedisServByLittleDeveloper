@@ -1,4 +1,4 @@
-#include "redis.h"
+#include "protocol/redis.h"
 #include <boost/algorithm/string/join.hpp>
 #include <gtest/gtest.h>
 
