@@ -1,7 +1,8 @@
-//#pragma once
+#pragma once
 
 #include <vector>
 #include <string>
+#include <server/socket.h>
 
 class Writer {
 public:
@@ -25,6 +26,15 @@ public:
     explicit StringWriter(size_t buffer_size = 1024) : Writer(buffer_size) {}
 
     std::string result;
+
+    virtual void flush() override;
+};
+
+class SocketWriter : public Writer {
+public:
+    explicit SocketWriter(int des, size_t buffer_size = 1024) : socket_(des), Writer(buffer_size) {}
+
+    Socket socket_;
 
     virtual void flush() override;
 };

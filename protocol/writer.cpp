@@ -38,3 +38,9 @@ void StringWriter::flush() {
     result.append(buffer_.begin(), buffer_.begin() + wpos_);
     wpos_ = 0;
 }
+
+void SocketWriter::flush() {
+    std::string * out = new std::string(buffer_.begin(), buffer_.begin() + wpos_);
+    socket_.send(out);
+    wpos_ = 0;
+}

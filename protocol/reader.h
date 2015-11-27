@@ -1,8 +1,9 @@
-//#pragma once
+#pragma once
 
 #include <vector>
 #include <string>
 #include <stdexcept>
+#include <server/socket.h>
 //#include "redis.h"
 
 class Reader {
@@ -27,6 +28,16 @@ public:
     explicit StringReader(size_t buffer_size = 1024) : Reader(buffer_size) {}
 
     std::string input;
+
+    virtual void read_more() override;
+};
+
+class SocketReader : public Reader {
+public:
+    explicit SocketReader(int des, size_t buffer_size = 1024) : socket_(des), Reader(buffer_size) {}
+
+    std::string input;
+    Socket socket_;
 
     virtual void read_more() override;
 };

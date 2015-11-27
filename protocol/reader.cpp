@@ -20,10 +20,10 @@ int64_t Reader::read_int() {
 
     do {
         i *= 10;
-        //i += next - '0';
-        if (__builtin_saddl_overflow(i, next - '0', &i)) {
-            throw std::invalid_argument("integer overflow");
-        }
+        i += next - '0';
+//        if (__builtin_saddl_overflow(i, next - '0', &i)) {
+//            throw std::invalid_argument("integer overflow");
+//        }
         next = read_char();
         ++counter;
     } while((next != '\r') && (counter < 20));
@@ -46,7 +46,7 @@ std::string Reader::read_string() {
         ++counter;
     }
     if (counter > 1024*1024) {  // проверка длины строки(ограничение - 1 мб)
-        throw std::exception("");
+        throw std::invalid_argument("geuy,jhtf");
     }
     read_char();
     return string_out;
@@ -64,6 +64,19 @@ std::vector<char> Reader::read_raw(size_t len) {
 }
 
 void StringReader::read_more() {
+    if (input.empty()) throw std::runtime_error("end of input");
+
+    end_ = 0;
+    rpos_ = 0;
+    for (; end_ < input.size() && end_ < buffer_.size(); ++end_) {
+        buffer_[end_] = input[end_];
+    }
+
+    input.erase(input.begin(), input.begin() + end_);
+}
+
+void SocketReader::read_more() {
+    input = *(socket_.get(buffer_.size()));
     if (input.empty()) throw std::runtime_error("end of input");
 
     end_ = 0;
