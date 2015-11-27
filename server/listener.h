@@ -23,7 +23,7 @@ public:
 
     // создаёт объекты типа Socket
     Listener(int port);
-    std::unique_ptr<Socket> accept();
+    std::unique_ptr<Socket> accept_conn();
 
 };
 

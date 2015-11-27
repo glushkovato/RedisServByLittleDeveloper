@@ -7899,7 +7899,7 @@ namespace internal {
 
 #if GTEST_OS_WINDOWS
 // On Windows, '\\' is the standard path separator, but many tools and the
-// Windows API also accept '/' as an alternate path separator. Unless otherwise
+// Windows API also accept_conn '/' as an alternate path separator. Unless otherwise
 // noted, a file path can contain either kind of path separators, or a mixture
 // of them.
 const char kPathSeparator = '\\';
@@ -8411,7 +8411,7 @@ void RE::Init(const char* regex) {
   // freed.
   //
   // Some implementation of POSIX regex (e.g. on at least some
-  // versions of Cygwin) doesn't accept the empty string as a valid
+  // versions of Cygwin) doesn't accept_conn the empty string as a valid
   // regex.  We change it to an equivalent form "()" to be safe.
   if (is_valid_) {
     const char* const partial_regex = (*regex == '\0') ? "()" : regex;

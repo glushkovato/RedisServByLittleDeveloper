@@ -1,8 +1,13 @@
 //
 // Created by glushkovato on 11.11.15.
 //
+#pragma once
+#include "listener.h"
 
-#ifndef HSE_SAMPLE_PROJECT_SERVER_H
-#define HSE_SAMPLE_PROJECT_SERVER_H
-
-#endif //HSE_SAMPLE_PROJECT_SERVER_H
+class Server {
+private:
+    Listener opener;
+public:
+    Server(int port);  // Server(int port, int connect_counter);
+    void foo();
+};

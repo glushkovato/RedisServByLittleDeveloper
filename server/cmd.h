@@ -1,10 +1,7 @@
 //
 // Created by glushkovato on 11.11.15.
 //
-
-#ifndef HSE_SAMPLE_PROJECT_CMD_H
-#define HSE_SAMPLE_PROJECT_CMD_H
-
+#pragma once
 #include <bits/stringfwd.h>
 #include <protocol/redis.h>
 
@@ -14,12 +11,11 @@ class Cmd {
     virtual RedisValue exec(RedisValue args) = 0;
 };
 
-class Get : public Cmd {
+//class Get : public Cmd {
+//
+//};
+//
+//class Set : public Cmd {
+//
+//};
 
-};
-
-class Set : public Cmd {
-
-};
-
-#endif //HSE_SAMPLE_PROJECT_CMD_H

@@ -1,15 +1,11 @@
 //
 // Created by glushkovato on 11.11.15.
 //
-
-#ifndef HSE_SAMPLE_PROJECT_SOCKET_H
-#define HSE_SAMPLE_PROJECT_SOCKET_H
+#pragma once
 
 class Socket {
-private:
-    int filedes;
-
 public:
+    int filedes;
     Socket(int new_filedes);  // конструктор
     ~Socket();  // деструктор
 
@@ -17,4 +13,3 @@ public:
     void send(std::string* res_of_get);
 };
 
-#endif //HSE_SAMPLE_PROJECT_SOCKET_H

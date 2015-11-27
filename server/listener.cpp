@@ -9,7 +9,6 @@ void Listener::socket_() {
     socket_desc = socket(AF_INET , SOCK_STREAM , 0);
     if (socket_desc == -1) {
         throw std::invalid_argument("Could not create socket");
-        // printf("Could not create socket");
     }
 }
 
@@ -23,7 +22,6 @@ void Listener::bind_() {
     //Bind
     if( bind(socket_desc,(struct sockaddr *)&server , sizeof(server)) < 0) {
         throw std::runtime_error("Bind failed");
-        //puts("bind failed");
     }
 }
 
@@ -36,7 +34,7 @@ void Listener::setsockopt_() {
     setsockopt(socket_desc, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 }
 
-std::unique_ptr<Socket> Listener::accept() {
+std::unique_ptr<Socket> Listener::accept_conn() {
     struct sockaddr_in tmp;
     socklen_t slen = sizeof(tmp);
 
