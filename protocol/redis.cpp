@@ -40,8 +40,13 @@ void WriteRedisValue(Writer* w, const RedisValue& value) {
 void ReadRedisValue(Reader* r, RedisValue* value) {
     switch(r->read_char()) {
         case ':': {
-            *value = r->read_int();
-            break;
+            try {
+                *value = r->read_int();
+                break;
+            } catch (std::invalid_argument &e) {
+                std::cerr << e.what();
+                throw;
+            }
         }
         case '*': {
             long long n = r->read_int();

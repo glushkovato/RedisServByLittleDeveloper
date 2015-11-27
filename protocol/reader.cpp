@@ -1,6 +1,5 @@
 #include "reader.h"
 
-
 char Reader::read_char() {
     if (rpos_ == end_) read_more();
     return buffer_[rpos_++];
@@ -8,6 +7,7 @@ char Reader::read_char() {
 
 int64_t Reader::read_int() {
     int64_t i = 0;
+    int counter = 0;
     bool negative = false;
 
     char first = read_char(), next;
@@ -20,10 +20,18 @@ int64_t Reader::read_int() {
 
     do {
         i *= 10;
-        i += next - '0';
-
+        //i += next - '0';
+        if (__builtin_saddl_overflow(i, next - '0', &i)) {
+            throw std::invalid_argument("integer overflow");
+        }
         next = read_char();
-    } while(next != '\r');
+        ++counter;
+    } while((next != '\r') && (counter < 20));
+
+    if (counter > 19) {
+        throw std::invalid_argument("bad value of integer");
+    }
+
     read_char(); // skip '\n'
 
     return negative ? -i : i;
@@ -31,9 +39,14 @@ int64_t Reader::read_int() {
 
 std::string Reader::read_string() {
     char checker;
+    int counter = 0;
     std::string string_out;
     while((checker = read_char()) != '\r') {
         string_out.push_back(checker);
+        ++counter;
+    }
+    if (counter > 1024*1024) {  // проверка длины строки(ограничение - 1 мб)
+        throw std::exception("");
     }
     read_char();
     return string_out;
