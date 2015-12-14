@@ -36,7 +36,7 @@ class SocketReader : public Reader {
 public:
     explicit SocketReader(int des, size_t buffer_size = 1024) : socket_(des), Reader(buffer_size) {}
 
-    std::string input;
+    //std::string input;
     Socket socket_;
 
     virtual void read_more() override;

@@ -75,15 +75,20 @@ void StringReader::read_more() {
     input.erase(input.begin(), input.begin() + end_);
 }
 
+//void SocketReader::read_more() {
+//    input = *(socket_.get(buffer_.size()));
+//    if (input.empty()) throw std::runtime_error("end of input");
+//
+//    end_ = 0;
+//    rpos_ = 0;
+//    for (; end_ < input.size() && end_ < buffer_.size(); ++end_) {
+//        buffer_[end_] = input[end_];
+//    }
+//
+//    input.erase(input.begin(), input.begin() + end_);
+//}
+
 void SocketReader::read_more() {
-    input = *(socket_.get(buffer_.size()));
-    if (input.empty()) throw std::runtime_error("end of input");
-
-    end_ = 0;
+    socket_.get(buffer_.data(), buffer_.size());
     rpos_ = 0;
-    for (; end_ < input.size() && end_ < buffer_.size(); ++end_) {
-        buffer_[end_] = input[end_];
-    }
-
-    input.erase(input.begin(), input.begin() + end_);
 }
