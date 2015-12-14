@@ -5,6 +5,14 @@
 #include <netinet/in.h>
 #include "listener.h"
 
+Listener::Listener(int port) {
+    this->port = port;
+    socket_();
+    bind_();
+    listen_();
+    setsockopt_();
+}
+
 void Listener::socket_() {
     socket_desc = socket(AF_INET , SOCK_STREAM , 0);
     if (socket_desc == -1) {
@@ -20,7 +28,7 @@ void Listener::bind_() {
     server.sin_port = htons(port);
 
     //Bind
-    if( bind(socket_desc,(struct sockaddr *)&server , sizeof(server)) < 0) {
+    if( bind(socket_desc, (struct sockaddr *)&server , sizeof(server)) < 0) {
         throw std::runtime_error("Bind failed");
     }
 }
