@@ -9,7 +9,7 @@ public:
     Socket(int new_filedes);  // конструктор
     ~Socket();  // деструктор
 
-    std::string* get(size_t max_size_of_buf);
-    void send(std::string* res_of_get);
+    int get(char *input_data, size_t max_size_of_buf);
+    int send(char *output_data, size_t size_of_output_data);
 };
 
