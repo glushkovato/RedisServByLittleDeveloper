@@ -10,4 +10,5 @@ private:
 public:
     Server(int port);  // Server(int port, int connect_counter);
     void foo();
+    ~Server();
 };

@@ -4,6 +4,7 @@
 
 #include <stdexcept>
 #include <unistd.h>
+#include <iostream>
 #include "socket.h"
 
 Socket::Socket(int new_filedes) {
@@ -33,6 +34,7 @@ Socket::~Socket() {
 
 int Socket::get(char *input_data, size_t max_size_of_buf) {
     int n = read(filedes, input_data, max_size_of_buf);
+    //std::cout << std::string(input_data) << std::endl;
     if (n < 0) {
         throw std::invalid_argument("fail in Socket::get");
     } else {

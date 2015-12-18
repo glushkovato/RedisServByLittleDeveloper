@@ -3,14 +3,15 @@
 //
 
 #include <netinet/in.h>
+#include <iostream>
 #include "listener.h"
 
 Listener::Listener(int port) {
     this->port = port;
     socket_();
+    setsockopt_();
     bind_();
     listen_();
-    setsockopt_();
 }
 
 void Listener::socket_() {
@@ -19,6 +20,8 @@ void Listener::socket_() {
         throw std::invalid_argument("Could not create socket");
     }
 }
+
+
 
 void Listener::bind_() {
     struct sockaddr_in server;
@@ -29,6 +32,7 @@ void Listener::bind_() {
 
     //Bind
     if( bind(socket_desc, (struct sockaddr *)&server , sizeof(server)) < 0) {
+        //std::cout << "errno: " << errno << '\n';
         throw std::runtime_error("Bind failed");
     }
 }
@@ -39,7 +43,7 @@ void Listener::listen_() {
 
 void Listener::setsockopt_() {
     int opt = 1;
-    setsockopt(socket_desc, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
+    setsockopt(socket_desc, SOL_SOCKET, SO_REUSEADDR,(const char*) &opt, sizeof(opt));
 }
 
 std::unique_ptr<Socket> Listener::accept_conn() {
@@ -48,4 +52,8 @@ std::unique_ptr<Socket> Listener::accept_conn() {
 
     std::unique_ptr<Socket> newClient(new Socket(accept(socket_desc, (struct sockaddr *) &tmp, &slen)));
     return newClient;
+}
+
+Listener::~Listener() {
+    close(socket_desc);
 }

@@ -10,7 +10,8 @@
 #include "writer.h"
 
 struct RedisError {
-    explicit RedisError(const std::string& msg) : msg(msg) {}
+    //explicit RedisError(const std::string& msg) : msg(msg) {}
+    explicit RedisError(const std::string&& msg) : msg(msg) {}
 
     std::string msg;
 };

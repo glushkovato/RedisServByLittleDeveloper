@@ -51,9 +51,13 @@ void ReadRedisValue(Reader* r, RedisValue* value) {
         case '*': {
             long long n = r->read_int();
             *value = std::vector<RedisValue>(n);
-            for(size_t i = 0; i < n; ++i) {
+            //std::cout << "n: " << n << std::endl;
+            for (size_t i = 0; i < n; ++i) {
+                std::cout << "i = " << i << std::endl;
                 ReadRedisValue(r, &(boost::get<std::vector<RedisValue>>(*value)[i]));
+                //std::cout << "end of the world\n";
             }
+            std::cout << "one more end\n";
             /*int64_t n = r->read_int();
             for (int i = 0; i != n; ++i) {
                 ReadRedisValue( r, &value[i]);
@@ -77,8 +81,9 @@ void ReadRedisValue(Reader* r, RedisValue* value) {
             *value = RedisError(r->read_string());
             break;
         }
-        default:
-            throw std::runtime_error("invalid redis value");
+//        default: {
+//            throw std::runtime_error("invalid redis value");
+//        }
     }
 }
 

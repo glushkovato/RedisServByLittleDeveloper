@@ -1,11 +1,15 @@
+#include <iostream>
 #include "reader.h"
 
 char Reader::read_char() {
+    //std::cout << "Reader::read_char()  START" << std::endl;
     if (rpos_ == end_) read_more();
+    //std::cout << "Reader::read_char()  END" << std::endl;
     return buffer_[rpos_++];
 }
 
 int64_t Reader::read_int() {
+    //std::cout << "Reader::read_int()  START" << std::endl;
     int64_t i = 0;
     int counter = 0;
     bool negative = false;
@@ -33,11 +37,12 @@ int64_t Reader::read_int() {
     }
 
     read_char(); // skip '\n'
-
+    //std::cout << "Reader::read_int()  END" << std::endl;
     return negative ? -i : i;
 }
 
 std::string Reader::read_string() {
+    //std::cout << "Reader::read_string()  START" << std::endl;
     char checker;
     int counter = 0;
     std::string string_out;
@@ -49,10 +54,12 @@ std::string Reader::read_string() {
         throw std::invalid_argument("geuy,jhtf");
     }
     read_char();
+    //std::cout << "Reader::read_string()  END" << std::endl;
     return string_out;
 }
 
 std::vector<char> Reader::read_raw(size_t len) {
+    //std::cout << "Reader::read_raw(size_t len)  START" << std::endl;
     std::vector<char> string_out;
     string_out.resize(len);
     for(int i = 0; i != len; ++i) {
@@ -60,10 +67,12 @@ std::vector<char> Reader::read_raw(size_t len) {
     }
     read_char();
     read_char();
+    //std::cout << "Reader::read_raw(size_t len)  END" << std::endl;
     return string_out;
 }
 
 void StringReader::read_more() {
+    //std::cout << "StringReader::read_more()  START" << std::endl;
     if (input.empty()) throw std::runtime_error("end of input");
 
     end_ = 0;
@@ -73,6 +82,7 @@ void StringReader::read_more() {
     }
 
     input.erase(input.begin(), input.begin() + end_);
+    //std::cout << "StringReader::read_more()  END" << std::endl;
 }
 
 //void SocketReader::read_more() {
@@ -89,6 +99,9 @@ void StringReader::read_more() {
 //}
 
 void SocketReader::read_more() {
+    //std::cout << "SocketReader::read_more()  START" << std::endl;
     socket_.get(buffer_.data(), buffer_.size());
     rpos_ = 0;
+    //std::cout << "SocketReader::read_more()  END" << std::endl;
+    //std::cout << buffer_.data() << std::endl;
 }
